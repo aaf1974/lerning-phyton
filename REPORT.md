@@ -11,7 +11,7 @@
 | Шаг | Тема | Статус | Коммит |
 |-----|------|--------|--------|
 | 0 | Инициализация проекта | ✅ Выполнен | Step 0 |
-| 1 | Python синтаксис | ⏳ Ожидает | — |
+| 1 | Python синтаксис | ✅ Выполнен | Step 1 |
 | 2 | ООП и типизация | ⏳ Ожидает | — |
 | 3 | Экосистема и инструменты | ⏳ Ожидает | — |
 | 4 | Async/await | ⏳ Ожидает | — |
@@ -48,7 +48,29 @@
 
 ## Шаг 1 — Python синтаксис
 
-*(Заполняется агентом python-step-1-syntax)*
+**Дата:** 2026-03-06
+
+### Файлы упражнений
+
+- `exercises/day1/task_1_collections.py` — list/dict/set comprehensions, Counter
+- `exercises/day1/task_2_strings.py` — f-strings, форматирование, выравнивание
+- `exercises/day1/task_3_pattern_matching.py` — match/case, guard conditions
+- `exercises/day1/task_4_args_kwargs.py` — *args, **kwargs, keyword-only
+
+### Ключевые аналогии C# → Python
+
+| C# | Python | Пример |
+|----|--------|--------|
+| `LINQ .Where().Select().ToList()` | list comprehension | `[x*x for x in nums if x>0]` |
+| `ToDictionary(k, v)` | dict comprehension | `{w: len(w) for w in words}` |
+| `new HashSet<T>(items)` | set comprehension | `{x%3 for x in nums}` |
+| `GroupBy().Count()` | `Counter(items)` | `Counter("mississippi")` |
+| `dict.GetValueOrDefault(k, d)` | `dict.get(k, d)` | `cfg.get("timeout", 30)` |
+| `$"{amount:N2}"` | `f"{amount:,.2f}"` | `f"{1234.5:,.2f}"` → `"1,234.50"` |
+| `switch expression` | `match/case` | `match code: case 200: ...` |
+| `when` guard | `case x if cond:` | `case n if n < 0:` |
+| `params T[]` | `*args` | `def sum_all(*numbers)` |
+| named args | `**kwargs` | `def create(**overrides)` |
 
 ---
 
