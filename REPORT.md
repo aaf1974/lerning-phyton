@@ -15,7 +15,7 @@
 | 2 | ООП и типизация | ✅ Выполнен | Step 2 |
 | 3 | Экосистема и инструменты | ✅ Выполнен | Step 3 |
 | 4 | Async/await | ✅ Выполнен | Step 4 |
-| 5 | FastAPI | ⏳ Ожидает | — |
+| 5 | FastAPI | ✅ Выполнен | Step 5 |
 | 6 | SQLAlchemy + Alembic | ⏳ Ожидает | — |
 | 7 | Тестирование + финальный проект | ⏳ Ожидает | — |
 
@@ -156,7 +156,28 @@
 
 ## Шаг 5 — FastAPI
 
-*(Заполняется агентом python-step-5-fastapi)*
+**Дата:** 2026-03-06
+
+### Файлы
+
+- `src/orders/infrastructure/repositories.py` — InMemoryOrderRepository
+- `src/orders/application/services.py` — OrderService
+- `src/orders/api/routers/orders.py` — APIRouter CRUD endpoints
+- `src/orders/api/main.py` — FastAPI app, lifespan, middleware
+
+### Аналогии ASP.NET Core → FastAPI
+
+| ASP.NET Core | FastAPI | Описание |
+|--------------|---------|----------|
+| `[ApiController]` | `APIRouter` | Контроллер/роутер |
+| `[HttpPost]` | `@router.post("/")` | HTTP метод |
+| `[FromBody]` | Pydantic модель параметра | Десериализация |
+| `IActionResult` | автоматически из return | Ответ |
+| `services.AddScoped<T>()` | `Depends(factory)` | DI |
+| `app.UseMiddleware<T>()` | `@app.middleware("http")` | Middleware |
+| `IHostedService` lifespan | `@asynccontextmanager lifespan` | Lifecycle |
+| `ProblemDetails` | `HTTPException` | Ошибки |
+| `ModelState.IsValid` (авто) | Pydantic валидация (авто) | Валидация |
 
 ---
 
