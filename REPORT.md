@@ -17,7 +17,7 @@
 | 4 | Async/await | ✅ Выполнен | Step 4 |
 | 5 | FastAPI | ✅ Выполнен | Step 5 |
 | 6 | SQLAlchemy + Alembic | ✅ Выполнен | Step 6 |
-| 7 | Тестирование + финальный проект | ⏳ Ожидает | — |
+| 7 | Тестирование + финальный проект | ✅ Выполнен | Step 7 |
 
 ---
 
@@ -209,10 +209,92 @@
 
 ## Шаг 7 — Тестирование
 
-*(Заполняется агентом python-step-7-testing)*
+**Дата:** 2026-03-06
+
+### Файлы
+
+- `tests/conftest.py` — shared fixtures: test_engine, db_session, client
+- `tests/unit/test_domain.py` — TestMoney, TestOrderItem, TestOrder (30+ тестов)
+- `tests/unit/test_service.py` — тесты OrderService с AsyncMock
+- `tests/integration/test_api.py` — тесты через AsyncClient (health, CRUD, validation)
+
+### Аналогии xUnit → pytest
+
+| xUnit (C#) | pytest (Python) | Описание |
+|------------|-----------------|----------|
+| `[Fact]` | `def test_name():` | Обычный тест |
+| `[Theory] + [InlineData]` | `@pytest.mark.parametrize` | Параметрические тесты |
+| `Assert.Equal(exp, act)` | `assert act == exp` | Проверка равенства |
+| `Assert.Throws<T>(lambda)` | `pytest.raises(T)` | Ожидание исключения |
+| `Assert.IsType<T>(obj)` | `assert isinstance(obj, T)` | Проверка типа |
+| `IClassFixture<T>` | `fixture(scope="class")` | Fixture на класс |
+| `ICollectionFixture<T>` | `fixture(scope="session")` | Fixture на сессию |
+| `Mock<T>` (Moq) | `AsyncMock()` | Мок асинхронного объекта |
+| `mock.Setup(...).Returns(x)` | `mock.method.return_value = x` | Настройка возврата |
+| `mock.Verify(..., Times.Once)` | `mock.method.assert_called_once()` | Проверка вызова |
+| `WebApplicationFactory<T>` | `ASGITransport(app=app)` | HTTP тест-клиент |
 
 ---
 
-## Итоговые паттерны
+## Итоговая карта навыков
 
-*(Заполняется по мере прохождения)*
+### Реализованные концепции
+
+| Область | Навык | Файл |
+|---------|-------|------|
+| **Синтаксис** | List/dict/set comprehensions | `day1/task_1_collections.py` |
+| | f-strings, форматирование | `day1/task_2_strings.py` |
+| | match/case (pattern matching) | `day1/task_3_pattern_matching.py` |
+| | *args, **kwargs, keyword-only | `day1/task_4_args_kwargs.py` |
+| **ООП** | @dataclass, __post_init__ | `domain/models.py` |
+| | Operator overloading | `domain/models.py` |
+| | Protocol (duck typing) | `day2/task_protocol.py` |
+| | Enum с auto() | `domain/models.py` |
+| **Экосистема** | pydantic-settings + .env | `config.py` |
+| | uv, ruff, mypy, pytest | `day3/tooling_guide.md` |
+| **Async** | asyncio.gather (Task.WhenAll) | `day4/task_1_gather.py` |
+| | asyncio.Semaphore | `day4/task_1_gather.py` |
+| | async context manager | `day4/task_2_context_manager.py` |
+| | @asynccontextmanager | `day4/task_2_context_manager.py` |
+| **FastAPI** | APIRouter, @router.post/get | `api/routers/orders.py` |
+| | Pydantic request/response | `api/routers/orders.py` |
+| | Depends (DI) | `api/routers/orders.py` |
+| | Middleware, lifespan | `api/main.py` |
+| | Exception handlers | `api/main.py` |
+| **SQLAlchemy** | DeclarativeBase, mapped_column | `infrastructure/orm_models.py` |
+| | relationship + lazy="selectin" | `infrastructure/orm_models.py` |
+| | AsyncSession, async_sessionmaker | `infrastructure/database.py` |
+| | get_session (Depends + yield) | `infrastructure/database.py` |
+| **Тестирование** | pytest fixtures (scope) | `tests/conftest.py` |
+| | AsyncMock (Moq аналог) | `tests/unit/test_service.py` |
+| | @pytest.mark.parametrize | `tests/unit/test_domain.py` |
+| | AsyncClient (httpx) | `tests/integration/test_api.py` |
+
+### Финальная структура проекта
+
+```
+lerning-phyton/
+├── src/orders/
+│   ├── domain/models.py        ✅ Order, Money, OrderStatus
+│   ├── application/services.py ✅ OrderService (CQRS-like)
+│   ├── infrastructure/
+│   │   ├── repositories.py     ✅ InMemoryOrderRepository
+│   │   ├── orm_models.py       ✅ SQLAlchemy ORM
+│   │   └── database.py         ✅ AsyncSession, engine
+│   ├── api/
+│   │   ├── routers/orders.py   ✅ CRUD endpoints
+│   │   └── main.py             ✅ FastAPI app
+│   └── config.py               ✅ pydantic-settings
+├── tests/
+│   ├── conftest.py             ✅ shared fixtures
+│   ├── unit/test_domain.py     ✅ 30+ unit tests
+│   ├── unit/test_service.py    ✅ AsyncMock tests
+│   └── integration/test_api.py ✅ API integration tests
+├── exercises/
+│   ├── day1/ — синтаксис (4 файла)
+│   ├── day2/ — ООП, Protocol
+│   ├── day3/ — tooling guide
+│   ├── day4/ — async/await (2 файла)
+│   └── day6/ — Alembic guide
+└── pyproject.toml              ✅ зависимости + конфигурация
+```
