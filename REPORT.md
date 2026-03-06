@@ -13,7 +13,7 @@
 | 0 | Инициализация проекта | ✅ Выполнен | Step 0 |
 | 1 | Python синтаксис | ✅ Выполнен | Step 1 |
 | 2 | ООП и типизация | ✅ Выполнен | Step 2 |
-| 3 | Экосистема и инструменты | ⏳ Ожидает | — |
+| 3 | Экосистема и инструменты | ✅ Выполнен | Step 3 |
 | 4 | Async/await | ⏳ Ожидает | — |
 | 5 | FastAPI | ⏳ Ожидает | — |
 | 6 | SQLAlchemy + Alembic | ⏳ Ожидает | — |
@@ -109,7 +109,23 @@
 
 ## Шаг 3 — Экосистема и инструменты
 
-*(Заполняется агентом python-step-3-ecosystem)*
+**Дата:** 2026-03-06
+
+### Файлы
+
+- `src/orders/config.py` — pydantic-settings с `.env`, синглтон через `lru_cache`
+- `exercises/day3/tooling_guide.md` — полная таблица аналогов команд
+
+### Аналоги команд
+
+| .NET | Python | Назначение |
+|------|--------|------------|
+| `dotnet add package` | `uv add` | Пакетный менеджер |
+| `dotnet format` | `ruff format .` | Форматирование |
+| Roslyn analyzers | `mypy src/` | Статическая типизация |
+| `dotnet test` | `pytest` | Тестирование |
+| `dotnet ef migrations add` | `alembic revision --autogenerate` | Миграции |
+| `appsettings.json` + `IOptions<T>` | `pydantic-settings BaseSettings` | Конфигурация |
 
 ---
 
