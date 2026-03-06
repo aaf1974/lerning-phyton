@@ -14,7 +14,7 @@
 | 1 | Python синтаксис | ✅ Выполнен | Step 1 |
 | 2 | ООП и типизация | ✅ Выполнен | Step 2 |
 | 3 | Экосистема и инструменты | ✅ Выполнен | Step 3 |
-| 4 | Async/await | ⏳ Ожидает | — |
+| 4 | Async/await | ✅ Выполнен | Step 4 |
 | 5 | FastAPI | ⏳ Ожидает | — |
 | 6 | SQLAlchemy + Alembic | ⏳ Ожидает | — |
 | 7 | Тестирование + финальный проект | ⏳ Ожидает | — |
@@ -131,7 +131,26 @@
 
 ## Шаг 4 — Async/await
 
-*(Заполняется агентом python-step-4-async)*
+**Дата:** 2026-03-06
+
+### Файлы
+
+- `exercises/day4/task_1_gather.py` — asyncio.gather, Semaphore, замер времени
+- `exercises/day4/task_2_context_manager.py` — __aenter__/__aexit__, @asynccontextmanager
+
+### Ключевые отличия от .NET async
+
+| C# | Python | Важное отличие |
+|----|--------|----------------|
+| `async Task<T> M()` | `async def m() -> T:` | — |
+| `await M()` | `await m()` | — |
+| `Task.WhenAll(t1,t2)` | `asyncio.gather(t1(),t2())` | В Python передаём корутины |
+| `Task.WhenAny(...)` | `asyncio.wait(..., FIRST_COMPLETED)` | — |
+| `new SemaphoreSlim(3)` | `asyncio.Semaphore(3)` | — |
+| `await semaphore.WaitAsync()` | `async with semaphore:` | Через context manager |
+| `IAsyncDisposable` | async context manager | `__aenter__`/`__aexit__` |
+| `await using var x = new X()` | `async with X() as x:` | — |
+| Задача запускается сразу | **Корутина — объект до `await`!** | ⚠️ Главное отличие |
 
 ---
 
