@@ -12,7 +12,7 @@
 |-----|------|--------|--------|
 | 0 | Инициализация проекта | ✅ Выполнен | Step 0 |
 | 1 | Python синтаксис | ✅ Выполнен | Step 1 |
-| 2 | ООП и типизация | ⏳ Ожидает | — |
+| 2 | ООП и типизация | ✅ Выполнен | Step 2 |
 | 3 | Экосистема и инструменты | ⏳ Ожидает | — |
 | 4 | Async/await | ⏳ Ожидает | — |
 | 5 | FastAPI | ⏳ Ожидает | — |
@@ -76,7 +76,34 @@
 
 ## Шаг 2 — ООП и типизация
 
-*(Заполняется агентом python-step-2-oop)*
+**Дата:** 2026-03-06
+
+### Файлы
+
+- `src/orders/domain/models.py` — Money, OrderItem, Order, OrderStatus
+- `exercises/day2/task_protocol.py` — Protocol, duck typing vs ABC
+
+### Protocol vs ABC
+
+| Критерий | Protocol (duck typing) | ABC (явное) |
+|----------|------------------------|-------------|
+| C# аналог | interface (implicit) | interface |
+| Наследование | НЕ нужно | Обязательно |
+| `isinstance()` | Да (`@runtime_checkable`) | Да |
+| Общая логика | Нет | Да |
+| Чужие классы | ✅ Работает | ❌ Не работает |
+
+### Ключевые аналогии
+
+| C# | Python |
+|----|--------|
+| `record` / `record struct` | `@dataclass` / `@dataclass(frozen=True)` |
+| конструктор с валидацией | `__post_init__` |
+| `operator +` | `__add__` |
+| `get-only property` | `@property` |
+| `LINQ .Aggregate()` | `functools.reduce()` |
+| `interface IRepo` | `Protocol` |
+| `: IRepo` (реализация) | duck typing — не нужно! |
 
 ---
 
