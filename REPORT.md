@@ -16,7 +16,7 @@
 | 3 | Экосистема и инструменты | ✅ Выполнен | Step 3 |
 | 4 | Async/await | ✅ Выполнен | Step 4 |
 | 5 | FastAPI | ✅ Выполнен | Step 5 |
-| 6 | SQLAlchemy + Alembic | ⏳ Ожидает | — |
+| 6 | SQLAlchemy + Alembic | ✅ Выполнен | Step 6 |
 | 7 | Тестирование + финальный проект | ⏳ Ожидает | — |
 
 ---
@@ -183,7 +183,27 @@
 
 ## Шаг 6 — SQLAlchemy + Alembic
 
-*(Заполняется агентом python-step-6-sqlalchemy)*
+**Дата:** 2026-03-06
+
+### Файлы
+
+- `src/orders/infrastructure/orm_models.py` — OrderModel, OrderItemModel, Base
+- `src/orders/infrastructure/database.py` — engine, session factory, get_session
+- `exercises/day6/alembic_guide.md` — команды EF Core → Alembic
+
+### Аналогии EF Core → SQLAlchemy
+
+| EF Core | SQLAlchemy 2.0 | Описание |
+|---------|----------------|----------|
+| `DbContext` | `AsyncSession` | Единица работы |
+| `DbContextOptions` | `create_async_engine(url)` | Конфигурация |
+| `IDbContextFactory<T>` | `async_sessionmaker` | Фабрика сессий |
+| `.Include(o => o.Items)` | `lazy="selectin"` | Загрузка связанных |
+| `[Required]` | `nullable=False` | Обязательное поле |
+| `[MaxLength(200)]` | `String(200)` | Длина строки |
+| `SaveChangesAsync()` | `await session.commit()` | Сохранить изменения |
+| `dotnet ef migrations add` | `alembic revision --autogenerate` | Создать миграцию |
+| `dotnet ef database update` | `alembic upgrade head` | Применить миграции |
 
 ---
 
